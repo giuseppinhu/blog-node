@@ -6,13 +6,19 @@
     <div class="card mt-3">
       <div class="card-header"><h5>Edição de Categoria:</h5></div>
       <div class="card-body">
-        <form class="form-group" method="POST" action="/categories/save">
+        <form class="form-group" method="POST" action="/categories/update">
           <input
             type="text"
             name="title"
             class="form-control"
             placeholder="Digite sua nova Categoria"
             value="<%= categorias.title %>"
+          />
+          <input
+            type="hidden"
+            name="id"
+            placeholder="Digite sua nova Categoria"
+            value="<%= categorias.id %>"
           />
           <button class="btn btn-warning mt-2" type="submit">Atualizar</button>
         </form>
