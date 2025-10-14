@@ -6,16 +6,14 @@
     <div class="card mt-3">
       <div class="card-header"><h5>Novo Artigo:</h5></div>
       <div class="card-body">
-        <form class="form-group" method="POST" action="/categories/save">
-          <input type="text" name="title" class="form-control" placeholder="Título Arquivo" /><br />
+        <form class="form-group" method="POST" action="/article/save">
+          <input type="text" name="title" class="form-control" placeholder="Título Artigo" /><br />
           <textarea name="body" placeholder="Digite seu artigo" id="article"></textarea>
-          <div class="form-floating">
-            <select class="form-select">
+          <select class="form-control mt-3" name="category">
             <% categories.forEach(category => { %>
               <option value="<%= category.id %>"><%= category.title %></option>
             <% })%>
             </select>
-          </div>
           <button class="btn btn-warning mt-2" type="submit">Cadastrar</button>
         </form>
       </div>
