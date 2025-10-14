@@ -30,8 +30,64 @@ connection
     console.log(error);
   });
 
+// Home page
 app.get('/', (req, res) => {
-  res.render('index');
+  Article.findAll({
+    order: [['id', 'DESC']],
+  })
+    .then((articles) => {
+      // Categories NavBar
+      Category.findAll().then((categories) => {
+        res.render('index', { articles: articles, categories: categories });
+      });
+    })
+    .catch((error) => {
+      res.redirect('/');
+    });
+});
+
+app.get('/:slug', (req, res) => {
+  var slug = req.params.slug;
+
+  Article.findOne({
+    where: {
+      slug: slug,
+    },
+  })
+    .then((article) => {
+      // Categories NavBar
+      Category.findAll().then((categories) => {
+        res.render('article', { article: article, categories: categories });
+      });
+    })
+    .catch((error) => {
+      res.redirect('/');
+    });
+});
+
+app.get('/category/:slug', (req, res) => {
+  var slug = req.params.slug;
+
+  // Compare slug to slug DB
+  Category.findOne({
+    where: {
+      slug: slug,
+    },
+    include: [{ model: Article }],
+  })
+    .then((category) => {
+      if (category != undefined) {
+        // Categories NavBar
+        Category.findAll().then((categories) => {
+          res.render('index', { articles: category.articles, categories: categories });
+        });
+      } else {
+        res.redirect('/');
+      }
+    })
+    .catch((error) => {
+      res.redirect('/');
+    });
 });
 
 // Render routes

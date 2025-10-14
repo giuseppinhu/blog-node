@@ -53,4 +53,12 @@ router.post('/article/delete', (req, res) => {
   }
 });
 
+router.get('/admin/article/edit/:id', (req, res) => {
+  var id = req.params.id;
+
+  Article.findByPk(id).then((article) => {
+    res.render('admin/articles/edit', { article: article });
+  });
+});
+
 module.exports = router;
