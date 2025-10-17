@@ -1,0 +1,41 @@
+<%- include('../../partials/header.ejs')%>
+<body>
+  <%- include('../../partials/navbar.ejs')%>
+  <div class="container">
+    <div class="card mt-3">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h5>Usuários</h5>
+        <a href="/admin/user/create" class="btn btn-warning">Criar Usuário</a>
+      </div>
+      <div class="card-body">
+      <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Email</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% users.forEach(user => {  %>
+          <tr>
+            <th><%= user.id %></th>
+            <th><%= user.email %></th>
+            <th>
+              <a class="btn btn-warning">Editar</a>
+
+              <form method="POST" action="" class="d-inline-block" onsubmit="cancelarFormulario(event, this)"" >
+                <input type="hidden" value="" name="id">
+                <button class="btn btn-danger" type="submit">Excluir</button>
+              </form>
+            </th>
+          </tr>
+
+        <% }) %>
+      </tbody>
+    </table>
+      </div>
+    </div>
+  </div>
+</body>
+<%- include('../../partials/footer.ejs')%>

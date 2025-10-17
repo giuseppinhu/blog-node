@@ -13,11 +13,17 @@
       <div class="card">
         <div class="card-header"><%= article.title %></div>
         <div class="card-body">
-          <a href="/<%= article.slug%>" class="btn btn-dark">Leia Artigo</a>
+          <a href="/article/<%= article.slug%>" class="btn btn-dark">Leia Artigo</a>
         </div>
       </div>
       <br>
     <% }) %>
+
+    <div class="row mb-4">
+      <div class="col-12">
+          <a href="/articles/page/2" style="float: right;">Next >></a>
+      </div>
+    </div>
   </div>
 </body>
 

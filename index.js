@@ -3,12 +3,23 @@ const app = express();
 const port = 8080;
 const bodyParser = require('body-parser');
 const connection = require('./database/db');
+const session = require('express-session');
 
 const categoryController = require('./categories/CategoryController');
 const articleController = require('./articles/ArticleController');
+const userController = require('./users/UserController');
 
+// Models
 const Category = require('./categories/Category');
 const Article = require('./articles/Article');
+
+// Sessions
+app.use(
+  session({
+    secret: 'qualquercoisa',
+    cookie: { maxAge: 300000000 },
+  }),
+);
 
 // View Engine
 app.set('view engine', 'ejs');
@@ -34,6 +45,7 @@ connection
 app.get('/', (req, res) => {
   Article.findAll({
     order: [['id', 'DESC']],
+    limit: 4,
   })
     .then((articles) => {
       // Categories NavBar
@@ -46,7 +58,8 @@ app.get('/', (req, res) => {
     });
 });
 
-app.get('/:slug', (req, res) => {
+// Article page
+app.get('/article/:slug', (req, res) => {
   var slug = req.params.slug;
 
   Article.findOne({
@@ -94,6 +107,8 @@ app.get('/category/:slug', (req, res) => {
 app.use('/', categoryController);
 
 app.use('/', articleController);
+
+app.use('/', userController);
 
 app.listen(port, () => {
   console.log(`Servidor rodando: localhost:${port}`);

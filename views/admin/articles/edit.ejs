@@ -6,7 +6,7 @@
     <div class="card mt-3">
       <div class="card-header"><h5>Edição de Categoria:</h5></div>
       <div class="card-body">
-        <form class="form-group" method="POST" action="/categories/update">
+        <form class="form-group" method="POST" action="/article/update">
           <input
             type="text"
             name="title"
@@ -14,10 +14,20 @@
             placeholder="Título Artigo"
             value="<%= article.title %>"
           />
-          <textarea name="body" placeholder="Digite seu artigo" id="article">
+          <textarea name="body" id="article">
             <%= article.body %>
           </textarea>
-          <select class="form-control mt-3" name="category"></select>
+          <select class="form-control mt-3" name="category">
+            <% categories.forEach(category => { %>
+
+             <% if (category.id === article.categoriaId) { %>
+              <option value="<%= category.id %>" selected><%= category.title %></option>
+              <% } else { %>
+                <option value="<%= category.id %>"><%= category.title %></option>
+             <% } %>
+            <% })%>
+          </select>
+          <input type="hidden" name="id" value="<%= article.id %>">
           <button class="btn btn-warning mt-2" type="submit">Atualizar</button>
         </form>
       </div>
